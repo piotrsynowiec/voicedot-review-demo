@@ -3,7 +3,7 @@
   const link = document.getElementById('deployment-commit');
   const detail = document.getElementById('deployment-detail');
   try {
-    const response = await fetch('./deployment.json', { cache: 'no-store' });
+    const response = await fetch(link.dataset.manifest || './deployment.json', { cache: 'no-store' });
     if (!response.ok) throw new Error('Manifest unavailable');
     const deployment = await response.json();
     if (!/^[a-f0-9]{40}$/.test(deployment.commit)) throw new Error('Invalid revision');

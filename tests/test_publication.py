@@ -1,8 +1,12 @@
 """Bounded publication checks: no backend or paid services are used."""
 import importlib.util
+import hashlib
 import json
 from pathlib import Path
 import unittest
+import shutil
+import tempfile
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location("build_site", ROOT / "scripts/build_site.py")
@@ -37,6 +41,30 @@ class PublicationTests(unittest.TestCase):
         self.assertLess(html.index("window.VOICEDOT_CONFIG ="), html.index(loader))
         self.assertNotIn("{{", html)
         self.assertNotIn("{%", html)
+
+    def test_each_html_uses_matching_assets_and_revision_manifest(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            shutil.copytree(ROOT / "site", root / "site")
+            with patch.object(publisher, "ROOT", root):
+                publisher.build("a" * 40, "review", root / "dist")
+                html = (root / "dist/index.html").read_text()
+                for name in ("styles.css", "deployment.js"):
+                    digest = hashlib.sha256((root / "site" / name).read_bytes()).hexdigest()[:16]
+                    versioned = f"{Path(name).stem}.{digest}{Path(name).suffix}"
+                    self.assertIn(f'./{versioned}"', html)
+                    self.assertEqual((root / "dist" / versioned).read_bytes(),
+                                     (root / "site" / name).read_bytes())
+                manifest = f"deployment.{'a' * 40}.json"
+                self.assertIn(f'data-manifest="./{manifest}"', html)
+                self.assertEqual(json.loads((root / "dist" / manifest).read_text())["commit"], "a" * 40)
+                (root / "site/styles.css").write_text(".button { color: green; }")
+                publisher.build("b" * 40, "review", root / "dist")
+                changed = (root / "dist/index.html").read_text()
+                self.assertNotEqual(html, changed)
+                self.assertIn(f"deployment.{'b' * 40}.json", changed)
+                self.assertFalse((root / "dist" / manifest).exists())
+                self.assertEqual(json.loads((root / "dist/deployment.json").read_text())["commit"], "b" * 40)
 
     def test_binding_is_only_a_public_project_reference(self):
         self.assertEqual(json.loads((ROOT / ".voicedot.json").read_text()),

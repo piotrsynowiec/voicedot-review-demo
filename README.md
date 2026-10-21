@@ -63,8 +63,10 @@ authorized public HTTPS origin. No Python package install or npm build is needed
 ## Publication design
 
 Pushes to `review` run the pinned official GitHub Pages actions. Only four
-explicit static files plus the generated deployment manifest are published;
-repository instructions, credentials and scripts are not part of the site.
+explicit static sources and generated deployment manifests are published;
+repository instructions, credentials and build scripts are not part of the site.
+CSS/JS filenames include their content hash. The page footer reads a manifest
+bound to that HTML revision, so cached assets cannot claim a newer deployment.
 The publishing job has no Cloudflare or VoiceDot credentials. The deployment
 job uses short-lived GitHub permissions confined to this Pages repository.
 
