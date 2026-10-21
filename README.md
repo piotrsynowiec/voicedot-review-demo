@@ -30,8 +30,13 @@ git switch review
 `main` is the starting version. `review` is the only deployed branch. Fetch and
 inspect the current review branch before editing; never reset another reviewer's
 work. The intentionally light **Start a workspace** button is the baseline
-contrast issue. If a previous rehearsal already fixed it, ask the operator for
-a reset; do not pretend to make the same fix twice.
+contrast issue. The shared review branch may already contain a completed rehearsal.
+With the supplied repository-limited access and your explicit authorization,
+your coding agent can start a new rehearsal by restoring only the primary
+button background to `#b8c6bb` in a new commit on `review`, then verifying that
+public deployment. Preserve all unrelated code and history. Leave a new real
+comment after that reset; do not pretend an old Checked item is a new request.
+No operator reset, force push or backend access is needed.
 
 ## Reproduce the full cycle
 
@@ -83,8 +88,9 @@ manufacture it. The registration CLI is a separate workflow, outside this MCP.
 ## Operator reset
 
 After a completed rehearsal, preserve the before/after commit IDs and evidence.
-Restore only the intended sample file content from `main` in a new commit on
-`review`; do not rewrite branch history, delete feedback or impersonate Checked.
+Restore only the primary button background to `#b8c6bb` in a new commit on
+`review`; preserve unrelated edits and the publisher cache fix. Do not rewrite
+branch history, delete feedback or impersonate Checked.
 Keep the existing browser fixtures unchanged and use a new identifiable human
 comment for a new recording. See the private operator runbook for the current
 release checklist and credential provisioning.
