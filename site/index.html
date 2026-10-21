@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Harbor Notes demo website</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <span class="brand">Harbor Notes</span>
+      <nav aria-label="Main"><a href="#features">Features</a><a href="#stories">Stories</a><a href="#help">Help</a></nav>
+    </header>
+    <main>
+      <div class="hero">
+        <div>
+          <h1>Notes your whole team can find.</h1>
+          <p>Harbor Notes keeps meeting notes, decisions and next steps in one shared place, so nothing gets lost between calls.</p>
+          <div class="actions">
+            <a class="button primary" href="#features">Start a workspace</a>
+            <a class="button secondary" href="#stories">Take the tour</a>
+          </div>
+        </div>
+        <aside class="note-card" aria-label="Example note">
+          <h3>Weekly sync <small>Monday</small></h3>
+          <ul>
+            <li><b>Decision</b>Launch the new welcome email on Thursday.</li>
+            <li><b>Action</b>Maya updates the help article about sharing.</li>
+            <li><b>Question</b>Who reviews the layout on phones?</li>
+          </ul>
+        </aside>
+      </div>
+      <section id="features" aria-labelledby="features-title">
+        <h2 id="features-title">Built for busy teams</h2>
+        <div class="features">
+          <article class="feature"><h3>Shared agendas</h3><p>Everyone sees the topics before the meeting starts.</p></article>
+          <article class="feature"><h3>Clear owners</h3><p>Every action item has one name and one date.</p></article>
+          <article class="feature"><h3>Instant search</h3><p>Find any decision by a word you remember.</p></article>
+        </div>
+      </section>
+      <section id="stories" aria-label="Stories">
+        <blockquote>
+          <p>“We stopped asking where the notes are.”</p>
+          <cite>Maya Chen, team lead at Northwind Studio</cite>
+        </blockquote>
+      </section>
+      <section id="help" aria-labelledby="help-title">
+        <h2 id="help-title">Questions</h2>
+        <details><summary>Can guests read a note?</summary><p>Yes. Share one note with a link, and the rest stays private.</p></details>
+        <details><summary>Does it work on a phone?</summary><p>Yes. Every page adapts to a small screen.</p></details>
+        <details><summary>Can I export my notes?</summary><p>Yes, as Markdown or PDF.</p></details>
+      </section>
+      <p class="demo-note">This is the coding workspace for the Voicedot review. Leave feedback at a spot, ask your coding agent to make the change in this repository, push to the review branch, then check the deployed commit below. The lighter primary button is an intentional contrast issue in the starting version.</p>
+    </main>
+    <footer>Harbor Notes. A demo website.</footer>
+    <p class="deployment" aria-live="polite">Deployment: <a id="deployment-commit">loading revision…</a><br /><span id="deployment-detail">The commit is stamped by the publishing workflow.</span></p>
+    <script src="./deployment.js" defer></script>
+    <script>
+      window.VOICEDOT_CONFIG = {"accentColor":"#111111","emailPolicy":"optional","language":"en","pinEnabled":true,"position":"bottom-right","preset":"feedback","siteId":"vd_proj_I55B2u1eU1llGENz6kv2sTwlqFL0rsB_","timeLimitSeconds":120,"visualVariant":"neutral"};
+    </script>
+    <script async src="https://app.voicedot.ai/widget/v1/voicedot.js"></script>
+  </body>
+</html>
